@@ -2,7 +2,7 @@
 
 Chat rooms that live at a link. Start a room, send its link to whoever you want in it, and talk.
 
-**Try it:** https://linkchat.web.app
+**Try it:** https://linkchat-2598e.web.app
 
 - No accounts. You pick a name when you join, and the browser remembers it.
 - Anyone with the link can get in. Room links are 10 random letters and digits, so they can't be guessed.
