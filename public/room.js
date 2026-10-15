@@ -85,6 +85,7 @@ function follow() {
     recent,
     () => {
       caughtUp = true
+      els.log.dataset.ready = ''
       scrollDown(true)
     },
     { onlyOnce: true },
@@ -258,7 +259,8 @@ let lastTyping = 0
 els.text.addEventListener('input', () => {
   // grow with what's typed, up to a point
   els.text.style.height = 'auto'
-  els.text.style.height = `${Math.min(els.text.scrollHeight, 160)}px`
+  // scrollHeight leaves out the border, which the box's height includes
+  els.text.style.height = `${Math.min(els.text.scrollHeight + 2, 160)}px`
   if (!uid || !els.text.value || Date.now() - lastTyping < 2000) return
   lastTyping = Date.now()
   const mine = ref(db, `typing/${roomId}/${uid}`)
@@ -279,7 +281,7 @@ els.composer.addEventListener('submit', (e) => {
   const text = clean(els.text.value, LIMITS.text)
   if (!text || !uid) return
   els.text.value = ''
-  els.text.style.height = 'auto'
+  els.text.style.height = ''
   lastTyping = 0
   remove(ref(db, `typing/${roomId}/${uid}`)).catch(() => {})
   // the message and when you last sent one go together, so the rules can hold off a flood

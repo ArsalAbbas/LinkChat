@@ -224,29 +224,59 @@ a {
   min-height: 0;
 }
 
+/* the chat keeps to a readable column, however wide the window is */
+.chat {
+  --gutter: max(24px, calc((100% - 760px) / 2));
+}
+
 .chat__log {
   flex: 1;
   min-height: 0;
   margin: 0;
-  padding: 20px 24px 8px;
+  padding: 20px var(--gutter) 8px;
   overflow-y: auto;
   list-style: none;
 }
 
+/* once the history has loaded, an empty room says what to do */
+.chat__log[data-ready]:empty::before {
+  content: 'No messages yet. Copy the link and send it to whoever you want here.';
+  display: block;
+  margin-top: 18vh;
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 14px;
+}
+
 .message {
-  max-width: 720px;
-  padding: 6px 12px;
-  margin-top: 10px;
-  border-radius: var(--radius);
+  width: fit-content;
+  max-width: min(78%, 560px);
+  margin-top: 14px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .message--more {
-  margin-top: 0;
-  padding-top: 2px;
+  margin-top: 4px;
 }
 
+/* yours sit on the right with the time under them, since your own name goes without saying */
 .message--mine {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-left: auto;
   background: var(--mine);
+  box-shadow: none;
+}
+
+.message--mine .message__name {
+  display: none;
+}
+
+.message--mine .message__head {
+  justify-content: flex-end;
 }
 
 .message__head {
@@ -277,7 +307,7 @@ a {
 }
 
 .note {
-  margin: 12px 0 2px;
+  margin: 16px 0 2px;
   text-align: center;
   color: var(--ink-3);
   font-size: 13px;
@@ -285,7 +315,7 @@ a {
 
 .chat__typing {
   min-height: 22px;
-  padding: 0 36px;
+  padding: 0 var(--gutter);
   color: var(--ink-3);
   font-size: 13px;
 }
@@ -294,12 +324,19 @@ a {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  padding: 8px 24px 20px;
+  padding: 8px var(--gutter) 20px;
+}
+
+/* the same height as the box beside it while that's one line */
+.composer .button {
+  height: 48px;
+  padding: 0 20px;
 }
 
 .composer textarea {
   flex: 1;
   resize: none;
+  height: 48px;
   max-height: 160px;
   padding: 11px 16px;
   border: 1px solid var(--line);
@@ -444,12 +481,20 @@ a {
     margin: 0 0 0 auto;
   }
 
+  .chat {
+    --gutter: 12px;
+  }
+
   .chat__log {
-    padding: 12px 12px 8px;
+    padding-top: 12px;
+  }
+
+  .message {
+    max-width: 85%;
   }
 
   .composer {
-    padding: 8px 12px 14px;
+    padding-bottom: 14px;
   }
 
   .bar {
