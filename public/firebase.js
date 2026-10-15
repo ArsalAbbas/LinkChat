@@ -30,7 +30,7 @@ export {
 const app = initializeApp({
   apiKey: 'AIzaSyDidkr9MYYQCnCymWmBXfs9P3zY6XCyJsA',
   authDomain: 'chat-app-37dc4.firebaseapp.com',
-  databaseURL: 'https://chat-app-37dc4-default-rtdb.firebaseio.com',
+  databaseURL: 'https://chat-app-37dc4-default-rtdb.asia-southeast1.firebasedatabase.app',
   projectId: 'chat-app-37dc4',
   appId: '1:742119306474:web:a4f4e05adf4d9b3e74d393',
 })
