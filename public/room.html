@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A room on LinkChat</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/room.js"></script>
+  </head>
+  <body class="room">
+    <header class="bar">
+      <a class="logo logo--small" href="/"><span class="logo__mark" aria-hidden="true"></span>LinkChat</a>
+      <span class="bar__status" data-status aria-live="polite">Connecting…</span>
+      <button class="button button--quiet" type="button" data-copy>Copy link</button>
+    </header>
+
+    <div class="room__body">
+      <section class="chat" aria-label="Messages">
+        <ol class="chat__log" data-log aria-live="polite"></ol>
+        <p class="chat__typing" data-typing aria-live="polite"></p>
+        <form class="composer" data-composer>
+          <label class="sr-only" for="text">Message</label>
+          <textarea id="text" name="text" rows="1" maxlength="2000" placeholder="Say something" autocomplete="off" disabled></textarea>
+          <button class="button" type="submit" disabled>Send</button>
+        </form>
+      </section>
+
+      <aside class="people" aria-label="Who’s here">
+        <h2 class="people__title">Here now <span data-count></span></h2>
+        <ul class="people__list" data-people></ul>
+        <button class="button button--quiet button--small" type="button" data-rename>Change my name</button>
+      </aside>
+    </div>
+
+    <dialog class="sheet" data-name-sheet>
+      <form class="sheet__form" method="dialog" data-name-form>
+        <h2>What should people call you?</h2>
+        <label class="sr-only" for="name">Your name</label>
+        <input id="name" name="name" maxlength="32" autocomplete="nickname" placeholder="Your name" required />
+        <button class="button" type="submit" value="join">Join</button>
+      </form>
+    </dialog>
+
+    <div class="gone" data-gone hidden>
+      <h1>This room is gone</h1>
+      <p>Its link may be mistyped, or everyone left more than a day ago and it closed.</p>
+      <a class="button" href="/">Start a new room</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkChat</title>
+    <meta name="description" content="Chat rooms that live at a link. Start one, share the link, and talk." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/home.js"></script>
+  </head>
+  <body class="home">
+    <main class="home__main">
+      <h1 class="logo"><span class="logo__mark" aria-hidden="true"></span>LinkChat</h1>
+      <p class="home__lead">Chat rooms that live at a link. Start one, send the link to whoever you want in it, and talk.</p>
+      <button class="button" type="button" data-start>Start a room</button>
+      <p class="home__error" role="alert" data-error hidden></p>
+      <ul class="home__notes">
+        <li>No accounts. Pick a name when you join.</li>
+        <li>Anyone with the link can get in, so only share it with people you want there.</li>
+        <li>Nothing is saved to disk. A room closes a day after the last person leaves.</li>
+      </ul>
+    </main>
+  </body>
+</html>
