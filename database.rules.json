@@ -1,0 +1,61 @@
+{
+  "rules": {
+    "rooms": {
+      "$room": {
+        ".read": "auth != null",
+        ".write": "auth != null && !data.exists() && newData.exists()",
+        ".validate": "$room.length === 10 && $room.matches(/^[0-9A-Za-z]+$/) && newData.hasChildren(['createdAt', 'createdBy'])",
+        "createdAt": { ".validate": "newData.val() === now" },
+        "createdBy": { ".validate": "newData.val() === auth.uid" },
+        "$other": { ".validate": false }
+      }
+    },
+    "messages": {
+      "$room": {
+        ".read": "auth != null && root.child('rooms').child($room).exists()",
+        "$message": {
+          ".write": "auth != null && !data.exists() && newData.exists() && root.child('rooms').child($room).exists()",
+          ".validate": "newData.hasChildren(['uid', 'name', 'text', 'at'])",
+          "uid": { ".validate": "newData.val() === auth.uid" },
+          "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 32" },
+          "text": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2000" },
+          "at": {
+            ".validate": "newData.val() === now && newData.parent().parent().parent().parent().child('last').child(auth.uid).val() === now && (!root.child('last').child(auth.uid).exists() || root.child('last').child(auth.uid).val() <= now - 500)"
+          },
+          "$other": { ".validate": false }
+        }
+      }
+    },
+    "last": {
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid && newData.exists()",
+        ".validate": "newData.val() === now"
+      }
+    },
+    "people": {
+      "$room": {
+        ".read": "auth != null && root.child('rooms').child($room).exists()",
+        "$entry": {
+          ".write": "auth != null && root.child('rooms').child($room).exists() && (!data.exists() || data.child('uid').val() === auth.uid) && (!newData.exists() || newData.child('uid').val() === auth.uid)",
+          ".validate": "newData.hasChildren(['uid', 'name', 'at'])",
+          "uid": { ".validate": "newData.val() === auth.uid" },
+          "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 32" },
+          "at": { ".validate": "newData.isNumber()" },
+          "$other": { ".validate": false }
+        }
+      }
+    },
+    "typing": {
+      "$room": {
+        ".read": "auth != null && root.child('rooms').child($room).exists()",
+        "$uid": {
+          ".write": "auth != null && auth.uid === $uid && root.child('rooms').child($room).exists()",
+          ".validate": "newData.hasChildren(['name', 'at'])",
+          "name": { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 32" },
+          "at": { ".validate": "newData.val() === now" },
+          "$other": { ".validate": false }
+        }
+      }
+    }
+  }
+}
